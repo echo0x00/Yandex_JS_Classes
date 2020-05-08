@@ -1,18 +1,17 @@
 class CardList {
-    constructor (container, arrayCards) {
+    constructor (container) {
         this.container = container;
-        this.arrayCards = arrayCards;
+        this.arrayCards = [];
     }
 
-    addCard(name, url) {
-        const { cardObject } = new Card(name, url); 
-        this.arrayCards.push(cardObject);
-        this.container.appendChild(cardObject);
+    addCard(card) {
+        this.arrayCards.push(card.cardObject);
+        this._render();
     }
 
-    render() {
+    _render() {
         this.arrayCards.forEach((card) => {
-            this.container.appendChild(card.cardObject);
+            this.container.appendChild(card);
         });
     }
 }

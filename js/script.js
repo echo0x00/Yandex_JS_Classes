@@ -71,7 +71,7 @@ function addCard() {
             submitText: '+', 
             formName: 'new', 
             submitCallback: (name, url) => {
-                cardList.addCard(name, url);
+                cardList.addCard(new Card(name, url, popup));
                 popup.close();
             } 
         }
@@ -120,27 +120,12 @@ function editProfile() {
 }
 
 const popup = new Popup(popupTemplate);
+const cardList  = new CardList(cards);
 
-const cardsArray = [];
 initialCards.forEach(function(item) {
-    const card = new Card(item.name, item.link);
-
-    card.cardObject.addEventListener('click', (event) => {
-        const bigSizeImage = document.createElement("img");
-        bigSizeImage.classList.add("popup__image");
-        bigSizeImage.src = item.link;
-        bigSizeImage.alt = item.name;
-
-        if (event.target.className === 'place-card__image') {
-            popup.open(bigSizeImage);
-        }
-    })
-
-	cardsArray.push(card);
+    const card = new Card(item.name, item.link, popup);
+    cardList.addCard(card);
 });
-
-const cardList = new CardList(cards, cardsArray);
-cardList.render();
 
 const button = document.querySelector('.user-info__button');
 button.addEventListener('click', addCard);
